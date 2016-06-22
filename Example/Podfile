@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'AwesomeSwiftSocks_Example' do
+  pod 'AwesomeSwiftSocks', :path => '../'
+
+  target 'AwesomeSwiftSocks_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
