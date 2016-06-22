@@ -10,6 +10,8 @@ import Foundation
 import Darwin
 import AwesomeSwiftSocksCore
 
+JamOn
+
 /**
  *  A simple client socket. Can be used to
  *  connect to server, send and receive messages.
