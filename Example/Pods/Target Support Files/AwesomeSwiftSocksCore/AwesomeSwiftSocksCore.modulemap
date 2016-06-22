@@ -1,0 +1,6 @@
+framework module AwesomeSwiftSocksCore {
+  umbrella header "AwesomeSwiftSocksCore-umbrella.h"
+
+  export *
+  module * { export * }
+}
