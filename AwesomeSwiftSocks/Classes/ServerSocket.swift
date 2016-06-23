@@ -93,6 +93,17 @@ public class ServerSocket : Socket
     return ClientSocket(socket: clientSocket, url: clientURL, port: clientPort)
   }
 
+  public func acceptNext() -> ClientSocket
+  {
+    while true
+    {
+      if let clientSocket = accept()
+      {
+        return clientSocket
+      }
+    }
+  }
+
   /**
    *  Starts a server run loop for accepting
    *  all incomming connection to the socket.

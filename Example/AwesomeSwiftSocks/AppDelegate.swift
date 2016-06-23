@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SocketConnectionDelegate
     let connection = SocketConnection(url: NSURL(string: "127.0.0.1")!, port: 3031)
     connection.delegate = self
     connection.startConnection()
+    let server = SocketServer(port: 9090)
+    server.start()
     return true
   }
 

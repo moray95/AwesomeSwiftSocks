@@ -32,8 +32,8 @@ public protocol SocketConnectionDelegate : class
  */
 public class SocketConnection
 {
-  /// The queue to use for dispatching the events.
-  private static let defaultDispatchQueue = dispatch_queue_create("com.moraybaruh.awesomeswiftsocks.dispatchqueue",
+  /// The default queue to use for dispatching the polling.
+  private static let defaultDispatchQueue = dispatch_queue_create("com.moraybaruh.awesomeswiftsocks.connectiondispatchqueue",
                                                                   DISPATCH_QUEUE_SERIAL)
   /// The delay between each dispatch.
   private static let disptachDelay : Int64 = 1
