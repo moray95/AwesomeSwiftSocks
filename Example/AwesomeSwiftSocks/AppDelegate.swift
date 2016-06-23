@@ -10,22 +10,41 @@ import UIKit
 import AwesomeSwiftSocks
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate
+class AppDelegate: UIResponder, UIApplicationDelegate, SocketConnectionDelegate
 {
   var window: UIWindow?
 
   func application(application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
   {
-    let serverSocket = ServerSocket(port: 9090)
-    serverSocket.listen()
-    serverSocket.acceptAll(handleClient)
+    let connection = SocketConnection(url: NSURL(string: "127.0.0.1")!, port: 3030)
+    connection.delegate = self
+    connection.startConnection()
     return true
   }
 
-  func handleClient(clientSocket : ClientSocket)
+  func socketConnectionDidConnect(socketConnection: SocketConnection)
   {
+    print("Connected!")
+    socketConnection.socket.send("Connected!")
   }
+
+  func socketConnectionDidDisconnect(socketConnection: SocketConnection)
+  {
+    print("Disconnected!")
+  }
+
+  func socketConnectionDidFailToConnect(socketConnection: SocketConnection)
+  {
+    print("Connection failed!")
+  }
+
+  func socketConnection(socketConnection: SocketConnection, didReciveData data: NSData)
+  {
+    print("Received data: \(String(data: data, encoding: NSUTF8StringEncoding)!)")
+    socketConnection.disconnect()
+  }
+
 
 }
 

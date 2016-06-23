@@ -43,7 +43,7 @@ func connectSocket(socket : SocketType, address : String, port : PortType) -> Bo
   var addr = sockaddr_in()
   addr.sin_family = UInt8(AF_INET)
   addr.sin_port = CFSwapInt16HostToBig(port)
-  if inet_pton(AF_INET, address, cast(addr)) < 0
+  if inet_pton(AF_INET, address, cast(&addr.sin_addr)) < 0
   {
     return false
   }
