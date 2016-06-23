@@ -17,21 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate
   func application(application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
   {
-    // Override point for customization after application launch.
     let serverSocket = ServerSocket(port: 9090)
-    assert(serverSocket.listen())
+    serverSocket.listen()
     serverSocket.acceptAll(handleClient)
     return true
   }
 
-
   func handleClient(clientSocket : ClientSocket)
   {
-    while true
-    {
-      print(clientSocket.bytesAvailable())
-      sleep(1)
-    }
   }
 
 }

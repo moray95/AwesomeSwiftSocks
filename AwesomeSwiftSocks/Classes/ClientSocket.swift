@@ -18,12 +18,16 @@ public class ClientSocket : Socket
   /// The URL of the server to connect.
   public let url : NSURL
 
-  /// Wheather or not the socket is connected.
+  /**
+   *  Wheather or not the socket is connected.
+   *  This should not be used for checking if
+   *  the connectiong is still alive.
+   */
   public var connected : Bool
   {
-    if let socket = socket
+    if let _ = socket
     {
-      return socket > 0
+      return true
     }
     return false
   }
@@ -108,13 +112,18 @@ public class ClientSocket : Socket
     send(msg.dataUsingEncoding(NSUTF8StringEncoding)!)
   }
 
-  public func send(data : NSData)
+  public func send(data : NSData) -> Bool
   {
     guard let socket = socket else
     {
       fatalError("AwesomeSwiftSocks: Cannot send data without being connected.")
     }
-    writeSocket(socket, data: data)
+    guard writeSocket(socket, data: data) else
+    {
+      close()
+      return false
+    }
+    return true
   }
 
   /**
@@ -136,6 +145,10 @@ public class ClientSocket : Socket
     return readSocket(socket, length: size)
   }
 
+  /**
+   *  Returns the number of bytes available
+   *  to read.
+   */
   public func bytesAvailable() -> Int
   {
     guard let socket = socket else

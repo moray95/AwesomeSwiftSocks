@@ -54,9 +54,9 @@ func connectSocket(socket : SocketType, address : String, port : PortType) -> Bo
   return true
 }
 
-func writeSocket(socket : SocketType, data : NSData)
+func writeSocket(socket : SocketType, data : NSData) -> Bool
 {
-  write(socket, data.bytes, data.length)
+  return write(socket, data.bytes, data.length) != -1
 }
 
 func readSocket(socket : SocketType, length : Int) -> NSData?
@@ -105,3 +105,8 @@ func acceptSocket(socket : SocketType) -> (socket : SocketType, address : NSURL,
   return (socket: clientSocket, address: NSURL(string: String.fromCString(clientURL)!)!, port: clientPort)
 }
 
+func socketIgnoreSigpipe(socket : SocketType)
+{
+  var value = 1
+  setsockopt(socket, SOL_SOCKET, SO_NOSIGPIPE, &value, UInt32(sizeof (Int)))
+}

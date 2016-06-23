@@ -55,14 +55,14 @@ public class ServerSocket : Socket
     {
       return false
     }
-    guard socket > 0 else
+    guard socket >= 0 else
     {
       self.socket = nil
       return false
     }
     guard listenSocket(socket, port: port) else
     {
-      self.socket = nil
+      close()
       return false
     }
     return true

@@ -12,6 +12,15 @@ public class Socket
 {
   /// The lower level socket.
   var socket : SocketType? = nil
+  {
+    didSet
+    {
+      if let socket = socket
+      {
+        socketIgnoreSigpipe(socket)
+      }
+    }
+  }
   /// The port of the server to connect through.
   public let port : PortType
 
