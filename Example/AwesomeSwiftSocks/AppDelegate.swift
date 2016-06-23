@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SocketConnectionDelegate
   func application(application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
   {
-    let connection = SocketConnection(url: NSURL(string: "127.0.0.1")!, port: 3030)
+    let connection = SocketConnection(url: NSURL(string: "127.0.0.1")!, port: 3031)
     connection.delegate = self
     connection.startConnection()
     return true
@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SocketConnectionDelegate
   func socketConnectionDidConnect(socketConnection: SocketConnection)
   {
     print("Connected!")
-    socketConnection.socket.send("Connected!")
+    socketConnection.send("Connected!")
   }
 
   func socketConnectionDidDisconnect(socketConnection: SocketConnection)
@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SocketConnectionDelegate
   func socketConnection(socketConnection: SocketConnection, didReciveData data: NSData)
   {
     print("Received data: \(String(data: data, encoding: NSUTF8StringEncoding)!)")
-    socketConnection.disconnect()
+    socketConnection.close()
   }
 
 
