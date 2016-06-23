@@ -136,4 +136,13 @@ public class ClientSocket : Socket
     return readSocket(socket, length: size)
   }
 
+  public func bytesAvailable() -> Int
+  {
+    guard let socket = socket else
+    {
+      fatalError()
+    }
+    return Int(socket_available_bytes(socket))
+  }
+
 }

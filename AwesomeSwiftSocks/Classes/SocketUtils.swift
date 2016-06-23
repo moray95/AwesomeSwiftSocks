@@ -105,4 +105,3 @@ func acceptSocket(socket : SocketType) -> (socket : SocketType, address : NSURL,
   return (socket: clientSocket, address: NSURL(string: String.fromCString(clientURL)!)!, port: clientPort)
 }
 
-

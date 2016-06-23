@@ -17,6 +17,8 @@
 		9188536F1E8E5A007FA25020A51A5F71 /* ServerSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81B9D15FE29A2791074ED35F6163F6 /* ServerSocket.swift */; };
 		9F5D6693137F67AC8AE2135695379501 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
 		C09F5248E95B3075FCEBC277333BF2A0 /* SocketUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82E538DCD5B7412AABB679F607039D7 /* SocketUtils.swift */; };
+		CE810F801D1C42E800673DFD /* ioctl.c in Sources */ = {isa = PBXBuildFile; fileRef = CE810F7E1D1C42E800673DFD /* ioctl.c */; };
+		CE810F811D1C42E800673DFD /* ioctl.h in Headers */ = {isa = PBXBuildFile; fileRef = CE810F7F1D1C42E800673DFD /* ioctl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CEBCDBA01D1C0B34007FF9DC /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCDB9F1D1C0B34007FF9DC /* Socket.swift */; };
 		D5757E14D047DCE24E1AF3E6207E3AD2 /* AwesomeSwiftSocks-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4D7B4C491C8FF610C7CF30762D81B0 /* AwesomeSwiftSocks-dummy.m */; };
 		D6A5723A1FAA00E33DADE492DD7C6F46 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
@@ -63,6 +65,8 @@
 		C670A9B1AB2DF1ACADC09F6679ABF497 /* ClientSocket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ClientSocket.swift; sourceTree = "<group>"; };
 		CB81B9D15FE29A2791074ED35F6163F6 /* ServerSocket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ServerSocket.swift; sourceTree = "<group>"; };
 		CD8D5D014AAA656DA2FE401023C60138 /* Pods-AwesomeSwiftSocks_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AwesomeSwiftSocks_Tests-resources.sh"; sourceTree = "<group>"; };
+		CE810F7E1D1C42E800673DFD /* ioctl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioctl.c; sourceTree = "<group>"; };
+		CE810F7F1D1C42E800673DFD /* ioctl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioctl.h; sourceTree = "<group>"; };
 		CEBCDB9F1D1C0B34007FF9DC /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		E86668F20F252C440D1015B816BE59C5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		EBD2E56F0D24786EFCC73598E0E6EDCC /* Pods-AwesomeSwiftSocks_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AwesomeSwiftSocks_Example-dummy.m"; sourceTree = "<group>"; };
@@ -145,10 +149,12 @@
 		3C40E059E3873326CDB0A3E534260EF1 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CEBCDB9F1D1C0B34007FF9DC /* Socket.swift */,
 				C670A9B1AB2DF1ACADC09F6679ABF497 /* ClientSocket.swift */,
 				CB81B9D15FE29A2791074ED35F6163F6 /* ServerSocket.swift */,
 				F82E538DCD5B7412AABB679F607039D7 /* SocketUtils.swift */,
-				CEBCDB9F1D1C0B34007FF9DC /* Socket.swift */,
+				CE810F7E1D1C42E800673DFD /* ioctl.c */,
+				CE810F7F1D1C42E800673DFD /* ioctl.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -242,6 +248,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE810F811D1C42E800673DFD /* ioctl.h in Headers */,
 				76AA23761A06D023B24079CF555D4DFE /* AwesomeSwiftSocks-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,6 +368,7 @@
 				D5757E14D047DCE24E1AF3E6207E3AD2 /* AwesomeSwiftSocks-dummy.m in Sources */,
 				10E48DF5FAFAAF83E7B1371800F50F57 /* ClientSocket.swift in Sources */,
 				CEBCDBA01D1C0B34007FF9DC /* Socket.swift in Sources */,
+				CE810F801D1C42E800673DFD /* ioctl.c in Sources */,
 				9188536F1E8E5A007FA25020A51A5F71 /* ServerSocket.swift in Sources */,
 				C09F5248E95B3075FCEBC277333BF2A0 /* SocketUtils.swift in Sources */,
 			);

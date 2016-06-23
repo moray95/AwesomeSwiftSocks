@@ -19,21 +19,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate
   {
     // Override point for customization after application launch.
     let serverSocket = ServerSocket(port: 9090)
-    serverSocket.listen()
+    assert(serverSocket.listen())
+    serverSocket.acceptAll(handleClient)
+    return true
+  }
+
+
+  func handleClient(clientSocket : ClientSocket)
+  {
     while true
     {
-      guard let clientSocket = serverSocket.accept() else
-      {
-        continue
-      }
-      var str = clientSocket.read(1)
-      while str != nil
-      {
-        clientSocket.send(str!)
-        str = clientSocket.read(1)
-      }
+      print(clientSocket.bytesAvailable())
+      sleep(1)
     }
-    return true
   }
 
 }
