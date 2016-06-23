@@ -8,9 +8,6 @@
 
 import Foundation
 import Darwin
-import AwesomeSwiftSocksCore
-
-JamOn
 
 /**
  *  A simple client socket. Can be used to
@@ -22,11 +19,11 @@ JamOn
 public class ClientSocket
 {
   /// The URL of the server to connect.
-  public let url : NSURL
+  public let url : NSURL!
   /// The port of the server to connect through.
-  public let port : Int32
+  public let port : PortType!
   /// The C socket used for connection.
-  private var socket : Int32? = nil
+  private var socket : SocketType? = nil
 
   /// Wheather or not the socket is connected.
   public var connected : Bool
@@ -49,7 +46,7 @@ public class ClientSocket
   public init(url : String, port : Int)
   {
     self.url = NSURL(string: url)!
-    self.port = Int32(port)
+    self.port = PortType(port)
   }
 
   /**
@@ -63,7 +60,14 @@ public class ClientSocket
   public init(url : NSURL, port : Int)
   {
     self.url = url
-    self.port = Int32(port)
+    self.port = PortType(port)
+  }
+
+  init(socket : Int32)
+  {
+    self.socket = socket
+    self.url = nil
+    self.port = nil
   }
 
   /**
@@ -78,16 +82,17 @@ public class ClientSocket
     {
       return
     }
-    socket = ass_create_socket()
+    socket = createSocket()
     guard let socket = socket else
     {
       fatalError()
     }
     guard socket > 0 else
     {
+      self.socket = nil
       return
     }
-    if !ass_connect_socket(socket, url.absoluteString.cStringUsingEncoding(NSUTF8StringEncoding)!, port)
+    if !connectSocket(socket, address: url.absoluteString, port: port)
     {
       self.socket = nil
     }
@@ -104,7 +109,7 @@ public class ClientSocket
   {
     if let socket = socket
     {
-      ass_close_socket(socket)
+      closeSocket(socket)
     }
     socket = nil
   }
@@ -117,11 +122,16 @@ public class ClientSocket
    */
   public func send(msg : String)
   {
+    send(msg.dataUsingEncoding(NSUTF8StringEncoding)!)
+  }
+
+  public func send(data : NSData)
+  {
     guard let socket = socket else
     {
       fatalError("AwesomeSwiftSocks: Cannot send data without being connected.")
     }
-    ass_write_socket(socket, msg.cStringUsingEncoding(NSUTF8StringEncoding)!, msg.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
+    writeSocket(socket, data: data)
   }
 
   /**
@@ -134,24 +144,13 @@ public class ClientSocket
    *             If the returned value is `nil`, this probably means that the
    *             server closed the connection.
    */
-  public func read(size : Int) -> String?
+  public func read(size : Int) -> NSData?
   {
     guard let socket = socket else
     {
       fatalError("AwesomeSwiftSocks: Cannot send data without being connected.")
     }
-    let ptr = UnsafeMutablePointer<Int8>.alloc(size + 1)
-    defer
-    {
-      ptr.dealloc(size + 1)
-    }
-    ptr.initialize(0) // Init the buffer to guarentee null termination
-    let read = ass_read_socket(socket, ptr, size)
-    if read == 0
-    {
-      return nil
-    }
-    return String.fromCString(ptr)
+    return readSocket(socket, length: size)
   }
 
   deinit

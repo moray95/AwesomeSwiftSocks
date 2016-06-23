@@ -1,7 +1,5 @@
 PODS:
-  - AwesomeSwiftSocks (0.1):
-    - AwesomeSwiftSocksCore
-  - AwesomeSwiftSocksCore (0.1)
+  - AwesomeSwiftSocks (0.0.1)
 
 DEPENDENCIES:
   - AwesomeSwiftSocks (from `../`)
@@ -11,8 +9,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  AwesomeSwiftSocks: c2b2676260be79f4d9d978f654e0cff095d6b1c5
-  AwesomeSwiftSocksCore: b716e0c3b6b4c3ecacccc2b1104460be2949d5ac
+  AwesomeSwiftSocks: 772d42845bbf2274787d96b68e5ce869f7763856
 
 PODFILE CHECKSUM: d8af04a1dc835425025b6fad27d227444f046b95
 

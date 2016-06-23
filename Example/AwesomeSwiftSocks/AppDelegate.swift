@@ -18,10 +18,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate
                    didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
   {
     // Override point for customization after application launch.
-    let socket = ClientSocket(url: "127.0.0.1", port: 3030)
-    socket.connect()
-    socket.send("Hello World!")
-    print(socket.read(300))
+    let serverSocket = ServerSocket(port: 9090)
+    serverSocket.listen()
+    while true
+    {
+      guard let clientSocket = serverSocket.accept() else
+      {
+        continue
+      }
+      var str = clientSocket.read(1)
+      while str != nil
+      {
+        clientSocket.send(str!)
+        str = clientSocket.read(1)
+      }
+    }
     return true
   }
 

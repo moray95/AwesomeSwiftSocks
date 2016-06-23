@@ -10,6 +10,5 @@ Pod::Spec.new do |s|
   s.homepage = "https://github.com/moray95/AwesomeSwiftSocks"
   s.source = { :git => "https://github.com/moray95/AwesomeSwiftSocks.git", :tag => "0.0.1"}
   s.frameworks = "UIKit"
-  s.source_files = "AwesomeSwiftSocks/**/*.{swift,h,c}"
-  s.dependency "AwesomeSwiftSocksCore", "~> 0.1"
+  s.source_files = "AwesomeSwiftSocks/**/*.{swift}"
 end
