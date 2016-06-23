@@ -16,14 +16,10 @@ import Darwin
  *  The connection is closed when the object is
  *  destroyed.
  */
-public class ClientSocket
+public class ClientSocket : Socket
 {
   /// The URL of the server to connect.
-  public let url : NSURL!
-  /// The port of the server to connect through.
-  public let port : PortType!
-  /// The C socket used for connection.
-  private var socket : SocketType? = nil
+  public let url : NSURL
 
   /// Wheather or not the socket is connected.
   public var connected : Bool
@@ -46,7 +42,7 @@ public class ClientSocket
   public init(url : String, port : Int)
   {
     self.url = NSURL(string: url)!
-    self.port = PortType(port)
+    super.init(port: PortType(port))
   }
 
   /**
@@ -60,14 +56,13 @@ public class ClientSocket
   public init(url : NSURL, port : Int)
   {
     self.url = url
-    self.port = PortType(port)
+    super.init(port: PortType(port))
   }
 
-  init(socket : Int32)
+  init(socket : SocketType, url : NSURL, port : PortType)
   {
-    self.socket = socket
-    self.url = nil
-    self.port = nil
+    self.url = url
+    super.init(socket: socket, port: port)
   }
 
   /**
@@ -96,22 +91,6 @@ public class ClientSocket
     {
       self.socket = nil
     }
-  }
-
-  /**
-   *  Closes the current session with the
-   *  server. Does nothing if the socket is
-   *  not connected. Subsequent calls to `read` or
-   *  `send` must be preceded by a class to `connect`
-   *  to restablish the connection.
-   */
-  public func disconnect()
-  {
-    if let socket = socket
-    {
-      closeSocket(socket)
-    }
-    socket = nil
   }
 
   /**
@@ -151,11 +130,6 @@ public class ClientSocket
       fatalError("AwesomeSwiftSocks: Cannot send data without being connected.")
     }
     return readSocket(socket, length: size)
-  }
-
-  deinit
-  {
-    disconnect()
   }
 
 }

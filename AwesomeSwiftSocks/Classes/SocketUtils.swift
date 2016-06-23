@@ -14,9 +14,14 @@ func cast<T, U>(data : UnsafePointer<T>) -> UnsafePointer<U>
   return UnsafePointer<U>(data)
 }
 
-func cast<T, U>(data : T) -> U
+func cast<T, U>(data : UnsafePointer<T>) -> UnsafeMutablePointer<U>
 {
-  let dataPtr : UnsafePointer<U> = cast(data)
+  return UnsafeMutablePointer<U>(data)
+}
+
+func cast<T, U>(var data : T) -> U
+{
+  let dataPtr : UnsafePointer<U> = cast(&data)
   return dataPtr.memory
 }
 
@@ -86,9 +91,18 @@ func listenSocket(socket : SocketType, port : PortType) -> Bool
   return true
 }
 
-func acceptSocket(socket : SocketType) -> SocketType
+func acceptSocket(socket : SocketType) -> (socket : SocketType, address : NSURL, port : PortType)?
 {
-  return accept(socket, nil, nil)
+  var clientAddr = sockaddr_in()
+  var size = UInt32(sizeof (sockaddr_in))
+  let clientSocket = accept(socket, cast(&clientAddr), &size)
+  guard clientSocket >= 0 else
+  {
+    return nil
+  }
+  let clientURL = inet_ntoa(clientAddr.sin_addr)
+  let clientPort : PortType = clientAddr.sin_port
+  return (socket: clientSocket, address: NSURL(string: String.fromCString(clientURL)!)!, port: clientPort)
 }
 
 

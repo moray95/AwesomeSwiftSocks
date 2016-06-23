@@ -17,6 +17,7 @@
 		9188536F1E8E5A007FA25020A51A5F71 /* ServerSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81B9D15FE29A2791074ED35F6163F6 /* ServerSocket.swift */; };
 		9F5D6693137F67AC8AE2135695379501 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
 		C09F5248E95B3075FCEBC277333BF2A0 /* SocketUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82E538DCD5B7412AABB679F607039D7 /* SocketUtils.swift */; };
+		CEBCDBA01D1C0B34007FF9DC /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCDB9F1D1C0B34007FF9DC /* Socket.swift */; };
 		D5757E14D047DCE24E1AF3E6207E3AD2 /* AwesomeSwiftSocks-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4D7B4C491C8FF610C7CF30762D81B0 /* AwesomeSwiftSocks-dummy.m */; };
 		D6A5723A1FAA00E33DADE492DD7C6F46 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
 		DDFBC6491F4904730E37871A5E48079A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86668F20F252C440D1015B816BE59C5 /* UIKit.framework */; };
@@ -62,6 +63,7 @@
 		C670A9B1AB2DF1ACADC09F6679ABF497 /* ClientSocket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ClientSocket.swift; sourceTree = "<group>"; };
 		CB81B9D15FE29A2791074ED35F6163F6 /* ServerSocket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ServerSocket.swift; sourceTree = "<group>"; };
 		CD8D5D014AAA656DA2FE401023C60138 /* Pods-AwesomeSwiftSocks_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AwesomeSwiftSocks_Tests-resources.sh"; sourceTree = "<group>"; };
+		CEBCDB9F1D1C0B34007FF9DC /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		E86668F20F252C440D1015B816BE59C5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		EBD2E56F0D24786EFCC73598E0E6EDCC /* Pods-AwesomeSwiftSocks_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AwesomeSwiftSocks_Example-dummy.m"; sourceTree = "<group>"; };
 		ED67220699352C6B1C7D0C0A5B935B70 /* Pods-AwesomeSwiftSocks_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AwesomeSwiftSocks_Tests-frameworks.sh"; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				C670A9B1AB2DF1ACADC09F6679ABF497 /* ClientSocket.swift */,
 				CB81B9D15FE29A2791074ED35F6163F6 /* ServerSocket.swift */,
 				F82E538DCD5B7412AABB679F607039D7 /* SocketUtils.swift */,
+				CEBCDB9F1D1C0B34007FF9DC /* Socket.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 			files = (
 				D5757E14D047DCE24E1AF3E6207E3AD2 /* AwesomeSwiftSocks-dummy.m in Sources */,
 				10E48DF5FAFAAF83E7B1371800F50F57 /* ClientSocket.swift in Sources */,
+				CEBCDBA01D1C0B34007FF9DC /* Socket.swift in Sources */,
 				9188536F1E8E5A007FA25020A51A5F71 /* ServerSocket.swift in Sources */,
 				C09F5248E95B3075FCEBC277333BF2A0 /* SocketUtils.swift in Sources */,
 			);

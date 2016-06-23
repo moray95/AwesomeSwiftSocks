@@ -8,13 +8,8 @@
 
 import Foundation
 
-public class ServerSocket
+public class ServerSocket : Socket
 {
-  /// The port to listen to.
-  public let port : PortType
-  /// The C socket used for binding.
-  private var socket : Int32? = nil
-
   /// Wheather or not is listening.
   public var listening : Bool
   {
@@ -32,7 +27,7 @@ public class ServerSocket
    */
   public init(port : Int)
   {
-    self.port = PortType(port)
+    super.init(port: PortType(port))
   }
 
   public func listen()
@@ -57,30 +52,16 @@ public class ServerSocket
     }
   }
 
-  public func close()
-  {
-    if let socket = socket
-    {
-      closeSocket(socket)
-    }
-  }
-
   public func accept() -> ClientSocket?
   {
     guard let socket = socket else
     {
       fatalError("AwesomeSwiftSocks: Cannot accept clients without listening.")
     }
-    let clientSocket = acceptSocket(socket)
-    guard clientSocket > 0 else
+    guard let (clientSocket, clientURL, clientPort) = acceptSocket(socket) else
     {
       return nil
     }
-    return ClientSocket(socket: clientSocket)
-  }
-
-  deinit
-  {
-    close()
+    return ClientSocket(socket: clientSocket, url: clientURL, port: clientPort)
   }
 }
