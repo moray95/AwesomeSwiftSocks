@@ -8,6 +8,11 @@
 
 import Foundation
 
+/**
+ *  A server-side socket that can be used
+ *  to accept incomming connections and handle
+ *  clients.
+ */
 public class ServerSocket : Socket
 {
   /// Wheather or not is listening.
@@ -30,28 +35,51 @@ public class ServerSocket : Socket
     super.init(port: PortType(port))
   }
 
-  public func listen()
+  /**
+   *  Starts listening for incomming connections.
+   *  Does nothing if the socket is already listening.
+   *  Returns whether or not the socket started listening.
+   *
+   *  - returns: `true` if the socket started listening for
+   *             connections or was already listening and
+   *             `false` if an error occured.
+   */
+  public func listen() -> Bool
   {
     guard !listening else
     {
-      return
+      return true
     }
     socket = createSocket()
     guard let socket = socket else
     {
-      fatalError()
+      return false
     }
     guard socket > 0 else
     {
       self.socket = nil
-      return
+      return false
     }
-    if !listenSocket(socket, port: port)
+    guard listenSocket(socket, port: port) else
     {
       self.socket = nil
+      return false
     }
+    return true
   }
 
+  /**
+   *  Accepts a client connection to the socket.
+   *  Returns the socket associated with the accepted
+   *  client or `nil` if an error occured.
+   *
+   *  Calls to this method must be preceded by a
+   *  successfull call to `listen`.
+   *
+   *  - returns: The socket associated with the newly
+   *             accepted client or `nil` if an error
+   *             occured.
+   */
   public func accept() -> ClientSocket?
   {
     guard let socket = socket else
@@ -64,4 +92,24 @@ public class ServerSocket : Socket
     }
     return ClientSocket(socket: clientSocket, url: clientURL, port: clientPort)
   }
+
+  /**
+   *  Starts a server run loop for accepting
+   *  all incomming connection to the socket.
+   *  Calls `clientHandler` for each accepted
+   *  client. Discards failed accepts. This 
+   *  method does not return.
+   */
+  @noreturn
+  public func acceptAll(clientHandler : ClientSocket -> ())
+  {
+    while true
+    {
+      if let clientSocket = accept()
+      {
+        clientHandler(clientSocket)
+      }
+    }
+  }
+
 }

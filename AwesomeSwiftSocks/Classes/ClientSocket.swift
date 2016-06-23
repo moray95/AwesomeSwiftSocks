@@ -10,11 +10,8 @@ import Foundation
 import Darwin
 
 /**
- *  A simple client socket. Can be used to
+ *  A client-side socket that can be used to
  *  connect to server, send and receive messages.
- *
- *  The connection is closed when the object is
- *  destroyed.
  */
 public class ClientSocket : Socket
 {
@@ -66,31 +63,38 @@ public class ClientSocket : Socket
   }
 
   /**
-   *  Connects the socket to the server. This method aborts
-   *  if the `socket(2)` syscall fails. The socket won't be
-   *  connected if the call to `connect(2)` fails.
-   *  Check with `connected` if this call succeeds.
+   *  Connects the socket to the server.
+   *  Does nothing if the socket is already
+   *  connected. Returns whether or not the
+   *  conenction succeeded.
+   *
+   *  - returns: `true` if the socket has been
+   *              connected successfully or was
+   *              already connected and `false` if
+   *              an error occured.
    */
-  public func connect()
+  public func connect() -> Bool
   {
     guard !connected else
     {
-      return
+      return true
     }
     socket = createSocket()
     guard let socket = socket else
     {
-      fatalError()
+      return false
     }
     guard socket > 0 else
     {
       self.socket = nil
-      return
+      return false
     }
-    if !connectSocket(socket, address: url.absoluteString, port: port)
+    guard connectSocket(socket, address: url.absoluteString, port: port) else
     {
       self.socket = nil
+      return false
     }
+    return true
   }
 
   /**

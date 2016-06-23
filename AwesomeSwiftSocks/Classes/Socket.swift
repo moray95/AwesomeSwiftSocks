@@ -10,6 +10,7 @@ import Foundation
 
 public class Socket
 {
+  /// The lower level socket.
   var socket : SocketType? = nil
   /// The port of the server to connect through.
   public let port : PortType
