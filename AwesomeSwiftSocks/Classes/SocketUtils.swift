@@ -38,20 +38,39 @@ func closeSocket(socket : SocketType)
   close(socket)
 }
 
+func resolveAddress(address : String) -> String?
+{
+  let host = CFHostCreateWithName(nil, address).takeRetainedValue()
+  CFHostStartInfoResolution(host, .Addresses, nil)
+  var success: DarwinBoolean = false
+  guard let addresses = CFHostGetAddressing(host, &success)?.takeUnretainedValue() as NSArray?,
+            theAddress = addresses.firstObject as? NSData else
+  {
+    return nil
+  }
+  var hostname = [CChar](count: Int(NI_MAXHOST), repeatedValue: 0)
+  guard getnameinfo(UnsafePointer(theAddress.bytes), socklen_t(theAddress.length),
+                   &hostname, socklen_t(hostname.count), nil, 0, NI_NUMERICHOST) == 0 else
+  {
+      return nil
+  }
+  return String.fromCString(hostname)
+}
+
 func connectSocket(socket : SocketType, address : String, port : PortType) -> Bool
 {
   var addr = sockaddr_in()
   addr.sin_family = UInt8(AF_INET)
   addr.sin_port = CFSwapInt16HostToBig(port)
-  if inet_pton(AF_INET, address, cast(&addr.sin_addr)) < 0
+  guard let host = resolveAddress(address) else
   {
     return false
   }
-  if connect(socket, cast(&addr), UInt32(sizeof (sockaddr_in))) < 0
+  guard inet_pton(AF_INET, host, cast(&addr.sin_addr)) != -1 else
   {
     return false
   }
-  return true
+  return connect(socket, cast(&addr), UInt32(sizeof (sockaddr_in))) != -1
 }
 
 func writeSocket(socket : SocketType, data : NSData) -> Bool
