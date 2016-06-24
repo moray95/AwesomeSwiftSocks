@@ -17,22 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SocketConnectionDelegate
   func application(application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
   {
-    let socket = ClientSocket(url: "www.moraybaruh.com", port: 80)
-    if socket.connect()
-    {
-      socket.send("GET / HTTP/1.1\r\n")
-      socket.send("host: www.moraybaruh.com\r\n\r\n")
-      let received = NSMutableData()
-      while let data = socket.read(1)
-      {
-        received.appendData(data)
-      }
-      print(String(data: received, encoding: NSUTF8StringEncoding)!)
-    }
-    else
-    {
-      print("Connection Failed")
-    }
     return true
   }
 

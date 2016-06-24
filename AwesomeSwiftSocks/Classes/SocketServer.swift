@@ -9,7 +9,7 @@
 import Foundation
 
 /**
- *  Defines methods to properly handle event on a `SocketServer`.
+ *  Defines methods to properly handle events on a `SocketServer`.
  */
 public protocol SocketServerDelegate : class
 {
@@ -34,7 +34,7 @@ public class SocketServer
   /// The uderlaying server socket.
   private let socket : ServerSocket
   /// The delagate to dispatch events to.
-  weak var delegate : SocketServerDelegate?
+  public weak var delegate : SocketServerDelegate?
   /// The dispatch queue to use for polling.
   private var dispatchQueue = SocketServer.defaultDispatchQueue
 
