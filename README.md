@@ -1,14 +1,13 @@
 # AwesomeSwiftSocks
 
-A library to handle sockets in Swift. AweseomeSwiftSocks is currently only supported on iOS. OS X
-support will be added in the future.  If you wish to use AwesomeSwiftSocks for OS X, just download
-the source files and drag and drop them into your project.
+A library to handle sockets in Swift.
 
+AwesomeSwiftSocks is devided into two layer of abstraction.
 
 ###  1. Sockets
 
-Socket classes are wrappers arounds C-style sockets. You can connect to a remote server, send and receive messages.
-For exemple, to get the content of a website:
+Sockets are wrappers arounds C-style sockets. You can connect to a remote server, send and receive messages.
+For exemple, to get a website:
 
 ```swift
 // Create the socket
@@ -54,7 +53,8 @@ socket.acceptAll
 ### 2. Connections and servers
 
 Connections are the abstraction of the `ClientSocket` class. It manages a connection to a remote host
-without blocking your any thread. To handle a connection, you need to implement the `SocketConnectionDelegate` protocol:
+without blocking your current thread. It is similar to `NSURLConnection` but offers more flexibility.
+To handle a connection, you need to implement the `SocketConnectionDelegate` protocol:
 
 ```swift
 /**
@@ -87,7 +87,7 @@ Servers are the abstraction of the `ServerSocket` class. The handling of a serve
 connections'. To get started with server, just implement the `SocketServerDelegate`:
 
 
-```swift
+```
 /**
  *  Defines methods to properly handle events on a `SocketServer`.
  */
@@ -104,13 +104,11 @@ public protocol SocketServerDelegate : class
 }
 ```
 
-Just like the connetion delegate, these methods are always called on the main thread. Then, to start a server:
+## Example
 
-```swift
-let server = SocketServer(port: myPort)
-server.delegate = self
-server.start()
-```
+To run the example project, clone the repo, and run `pod install` from the Example directory first.
+
+## Requirements
 
 ## Installation
 
